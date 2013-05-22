@@ -1,0 +1,11 @@
+{
+  "name": "bower starter",
+  "version": "0.0.1",
+  "dependencies": {
+    "jquery": "",
+    "underscore-amd": "",
+    "backbone-amd": "",
+    "requirejs": "",
+    "bootstrap": "http://twitter.github.com/bootstrap/assets/bootstrap.zip"
+  }
+}
