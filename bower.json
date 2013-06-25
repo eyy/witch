@@ -1,11 +1,12 @@
 {
-  "name": "bower starter",
+  "name": "witch",
   "version": "0.0.1",
   "dependencies": {
-    "jquery": "",
-    "underscore-amd": "",
-    "backbone-amd": "",
-    "requirejs": "",
-    "bootstrap": "http://twitter.github.com/bootstrap/assets/bootstrap.zip"
+    "jquery": "~2.0.2",
+    "rivets": "~0.5.8",
+    "watch": "https://raw.github.com/melanke/Watch.JS/master/src/watch.js"
+  },
+  "devDependencies": {
+      "bootstrap": "http://twitter.github.io/bootstrap/assets/bootstrap.zip"
   }
 }

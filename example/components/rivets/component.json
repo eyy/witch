@@ -1,0 +1,23 @@
+{
+  "name": "rivets",
+  "repo": "mikeric/rivets",
+  "description": "Declarative data binding facility.",
+  "version": "0.5.8",
+  "keywords": [
+    "data binding",
+    "templating"
+  ],
+  "scripts": [
+    "dist/rivets.js"
+  ],
+  "main": "dist/rivets.js",
+  "license": "MIT",
+  "gitHead": "dba47367c4efd5023cecc91e7dbe867a014b4369",
+  "readme": "# Rivets.js\r\n\r\nRivets.js is a DOM-based templating system that sits ontop of a configurable component architecure. It let’s you build model-driven views (MDV) using declarative two-way data binding. If used properly it can reduce code complexity in your app by elimating the need to manually update the DOM, letting you focus more on your application’s data and domain logic.\r\n\r\n## Getting Started and Documentation\r\n\r\nAll documentation for Rivets.js is available on the [homepage](http://rivetsjs.com). See [#configure](http://rivetsjs.com#configure) to learn how to properly configure Rivets.js for your app.\r\n\r\n## Building and Testing\r\n\r\nMake sure to run npm install so that you have all the development dependencies. To have the test suite run as part of the build process, you'll also need to have PhantomJS installed.\r\n\r\n#### Building\r\n\r\nRivets.js uses [grunt](http://gruntjs.com/) as the build tool. Run `grunt build` from within the project root to compile + minify the source into `dist/`, or just run `grunt` to have it watch the source file for changes. It will compile + minify into `dist/` and run the test suite whenever the source file is saved.\r\n\r\n#### Testing\r\n\r\nRivets.js uses [Jasmine](http://pivotal.github.com/jasmine/) as the testing framework. You can run the test suite with `grunt spec`.\r\n\r\n## Contributing\r\n\r\n#### Bug Reporting\r\n\r\n1. Ensure the bug can be reproduced on the latest master.\r\n2. Open an issue on GitHub and include an isolated [JSFiddle](http://jsfiddle.net/) demonstration of the bug. The more information you provide, the easier it will be to validate and fix.\r\n\r\n#### Pull Requests\r\n\r\n1. Fork the repository and create a topic branch.\r\n2. Be sure to associate commits to their corresponding issue using `[#1]` or `[Closes #1]` if the commit resolves the issue.\r\n3. Make sure not to commit any changes under `dist/` as they will surely cause merge conflicts later. Files under `dist/` are only committed when a new build is released.\r\n4. Include tests for your changes and make them pass.\r\n5. Push to your fork and submit a pull-request with an explanation and reference to the issue number(s).\r\n",
+  "readmeFilename": "README.md",
+  "_id": "rivets@0.5.8",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/mikeric/rivets"
+  }
+}
