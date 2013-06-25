@@ -1,12 +1,28 @@
 {
   "name": "witch",
   "version": "0.0.1",
+  "repo": "eyy/witch",
+  "description": "A witchery Javascript MVC, based on Rivets and Watch.js",
+  "keywords": [
+    "mvc",
+    "data binding",
+    "templating"
+  ],
+  "scripts": [
+    "dist/witch.js",
+    "dist/adapter.js"
+  ],
+  "main": "dist/witch.js",
+  "license": "MIT",
+  "ignore": [
+    "example"
+  ],
   "dependencies": {
     "jquery": "~2.0.2",
     "rivets": "~0.5.8",
     "watch": "https://raw.github.com/melanke/Watch.JS/master/src/watch.js"
   },
   "devDependencies": {
-      "bootstrap": "http://twitter.github.io/bootstrap/assets/bootstrap.zip"
+    "bootstrap": "http://twitter.github.io/bootstrap/assets/bootstrap.zip"
   }
 }
