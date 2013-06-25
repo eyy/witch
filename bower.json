@@ -10,6 +10,7 @@
   ],
   "scripts": [
     "dist/witch.js",
+    "dist/rest.js",
     "dist/adapter.js"
   ],
   "main": "dist/witch.js",
