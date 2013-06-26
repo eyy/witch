@@ -92,9 +92,6 @@
         { text: 'why\'ja did that for?' }
     ]);
     var cmt = new witch.Model;
-    cmt.validate = function() {
-        return !!this.text;
-    };
     cmt._collection = comments;
 
     rivets.bind($('html'), {

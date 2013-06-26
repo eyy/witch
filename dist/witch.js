@@ -42,13 +42,10 @@
         fetch: function(data) {
             return rest.get(this.url + this._id, data, this.callback, this);
         },
-        validate: function() { return true; },
         save: function() {
-            if (!this.validate) return false;
             return rest[this._id ? 'put' : 'post'](this.url + this._id, this, this.callback, this);
         },
         saveAs: function() {
-            if (!this.validate) return false;
             var clone = this.toJSON();
             this._clean();
             return this._collection.push(clone).save();
