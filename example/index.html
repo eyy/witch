@@ -14,14 +14,19 @@
     <p data-text="config.desc"></p>
 
     <div class="row">
-        <div class="span4">
-            <h4>Edit</h4>
+        <div class="span3">
+            <h4>Edit Post</h4>
             <label><input type="text" data-value="post.title" /></label>
             <label><textarea data-value="post.content"></textarea></label>
             <label><input type="text" data-value="post.user.name" /></label>
             <label><input type="text" data-value="post.user.email" /></label>
             <button class="btn" data-on-click="post:save">Save</button>
         </div>
+        <form class="span3" data-on-submit="cmt:saveAs">
+            <h4>Add Comment</h4>
+            <input type="text" data-value="cmt.text" />
+            <button class="btn" type="submit">Comment</button>
+        </form>
     </div>
 </div>
 
@@ -35,8 +40,9 @@
             (<span data-text="post.user.email"></span>)
         </p>
 
+        <h4>Comments</h4>
         <ul>
-            <li data-each-comment="comments.list">
+            <li class="comment" data-each-comment="comments.list" data-class-flash="comment._new">
                 <span data-text="comment.text"></span>
             </li>
         </ul>
@@ -84,11 +90,14 @@
         { text: 'cool vid, bro' },
         { text: 'why\'ja did that for?' }
     ]);
+    var cmt = new witch.Model;
+    cmt._collection = comments;
 
     rivets.bind($('html'), {
         config: config,
         post: post,
-        comments: comments
+        comments: comments,
+        cmt: cmt
     });
 </script>
 

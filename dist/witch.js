@@ -1,4 +1,5 @@
 (function() {
+    var slice = [].slice;
 
     // from http://stackoverflow.com/a/2117523/152809, via stapes
     var uid = function() {
@@ -27,7 +28,7 @@
         _clean: function() {
             var prop;
             for (prop in this)
-                if (this.hasOwnProperty(prop))
+                if (this.hasOwnProperty(prop) && prop[0] != '_')
                     this[prop] = '';
         },
         toJSON: function() {
@@ -47,7 +48,7 @@
         saveAs: function() {
             var clone = this.toJSON();
             this._clean();
-            return this._collection.push(this.toJSON()).save();
+            return this._collection.push(clone).save();
         },
         delete: function() {
             if (this._id)
@@ -84,11 +85,17 @@
             }, this);
         },
         push: function(model) {
-            if (Array.isArray(model))
-                return model.forEach(this.push.bind(this));
+            if (Array.isArray(model)) {
+                model.forEach(this.push.bind(this));
+                this.filled = true;
+                return;
+            }
 
             model = (model instanceof Model) ? model : new this.model(model);
             model._collection = this;
+            if (this.filled)
+                model._new = true;
+
             watch(model, '_destroyed', function(prop, act, val) {
                 if (val)
                     this.remove(model);

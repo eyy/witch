@@ -1,3 +1,11 @@
 body {
     padding: 50px;
 }
+
+.flash {
+    -webkit-animation: 2s flash;
+}
+@-webkit-keyframes flash {
+    from { background: yellow; }
+    to { background: auto; }
+}
