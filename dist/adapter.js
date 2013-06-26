@@ -1,9 +1,4 @@
 (function() {
-    rivets.config.handler = function(el, e, binding) {
-        e.preventDefault();
-        return this.call(binding.model, binding);
-    };
-
     var subscriber = function(fn) {
         return function(o, path, cb) {
             path = path.split('.');
@@ -32,6 +27,10 @@
             unsubscribe: subscriber(unwatch),
             read: reader,
             publish: reader
+        },
+        handler: function(el, e, binding) {
+            e.preventDefault();
+            return this.call(binding.model, binding);
         }
     });
 })();
