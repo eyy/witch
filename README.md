@@ -20,6 +20,7 @@ Use
 <script src="components/jquery/jquery.js"></script>
 <script src="components/rivets/dist/rivets.js"></script>
 <script src="components/watch/index.js"></script>
+<script src="components/witch/dist/rivets-extras.js"></script> <!-- optional -->
 <script src="components/witch/dist/rivets-adapter.js"></script>
 <script src="components/witch/dist/witch.js"></script>
 <script>

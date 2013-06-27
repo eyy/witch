@@ -5,9 +5,18 @@
     <title>Witch.js Example</title>
 
     <link rel="stylesheet" href="components/bootstrap/css/bootstrap.css"/>
-    <link rel="stylesheet" href="../dist/witch.css"/>
     <style type="text/css">
+        [data-template] {
+            display: none;
+        }
         body { padding: 50px; }
+        .flash {
+            -webkit-animation: 2s flash;
+        }
+        @-webkit-keyframes flash {
+            from { background: yellow; }
+            to { background: auto; }
+        }
     </style>
 </head>
 <body>

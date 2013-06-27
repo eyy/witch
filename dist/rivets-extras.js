@@ -19,9 +19,4 @@
             fn.call(this, ctx[arg] || arg, binding);
         };
     };
-
-    /*
-     Rivets Binders
-     */
-
 })();
