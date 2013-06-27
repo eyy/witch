@@ -1,0 +1,213 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Witch.js</title>
+
+    <link rel="stylesheet" href="components/bootstrap/css/bootstrap.css"/>
+    <link rel="stylesheet" href="components/prism/prism-okaidia.css"/>
+    <link rel="stylesheet" href="css/main.css"/>
+
+    <script src="components/jquery/jquery.js"></script>
+    <script src="components/rivets/dist/rivets.js"></script>
+    <script src="components/watch/index.js"></script>
+    <script src="../dist/adapter.js"></script>
+    <script src="../dist/rivets-extras.js"></script>
+    <script src="../dist/rest.js"></script>
+    <script src="../dist/witch.js"></script>
+</head>
+<body>
+
+<div class="containers">
+    <h1>Witch.js</h1>
+    <p></p>
+
+    <h2>The Basic</h2>
+    <p>Data binding with Rivets, object observer with Watch.js</p>
+    <div class="row">
+        <div class="span3">
+            <h3>Output</h3>
+            <div class="html">
+            <div data-rivets="simple">
+                <p>
+                    <!-- One-way binding -->
+                    <strong data-text="model.text"></strong>
+                    is probably
+                </p>
+                <!-- Two-way binding -->
+                <input type="text" data-value="model.text"/>
+                <span data-text="model.deep.nested"></span>
+            </div>
+            </div>
+        </div>
+        <script>
+            // Write clean, sane javascript
+            var simple = {
+                model: {
+                    text: 'Hi there!',
+                    deep: {
+                        nested: '(yeah.)'
+                    }
+                }
+            };
+        </script>
+    </div>
+    <hr>
+
+    <h2>Still Quite Basic</h2>
+    <p>Models, collections and computed properties</p>
+    <div class="row">
+        <div class="span3">
+            <h3>Todo</h3>
+            <div class="html">
+            <style type="text/css">
+                .done {
+                    text-decoration: line-through;
+                    color: grey;
+                }
+            </style>
+
+            <div data-rivets="todo">
+                <p>
+                    <!-- Declare computed property dependencies -->
+                    <span data-text="tasks:remaining
+                        < .list.length .updated"></span> of
+                    <span data-text="tasks.list.length"></span> remaining
+                </p>
+                <ul>
+                    <!-- Loop through the collection  -->
+                    <li data-each-task="tasks.list" data-class-done="task.done">
+                        <input type="checkbox" data-checked="task.done" />
+                        <span data-text="task.text"></span>
+                    </li>
+                </ul>
+                <form data-on-submit="tsk:saveAs">
+                    <input type="text" data-value="tsk.text"/>
+                    <button type="submit" class="btn">Add task</button>
+                </form>
+            </div>
+            </div>
+        </div>
+        <script>
+            // Write and inherit classes however you like
+            var Task = function() {
+                witch.Model.apply(this, arguments);
+                // Notifying the change
+                watch(this, 'done', function() {
+                    this._collection.updated += 'a';
+                });
+            };
+            $.extend(Task.prototype, witch.Model.prototype);
+
+            // Our task collection
+            var tasks = new witch.Collection([
+                { done: true, text: 'Buy a toad' },
+                { done: false, text: 'Buy a bat' },
+                { done: false, text: 'Fix my broom' }
+            ], Task); // <-- is a collection of tasks
+
+            // A computed property
+            tasks.remaining = function() {
+                return this.list.filter(function(t) {
+                    return !t.done
+                }).length;
+            };
+
+            var todo = {
+                tasks: tasks,
+                tsk: new Task({}, tasks)
+            };
+        </script>
+    </div>
+    <hr>
+
+    <h2>Basic all the way down</h2>
+    <p>Templates, simple as they should be.</p>
+    <div class="row">
+        <div class="span4">
+            <h3>Which Witch?</h3>
+            <div class="html">
+            <div data-rivets="temp">
+                <ul>
+                    <li data-each-user="users.list">
+                        <a href="#" data-text="user.name" data-on-click="user:card"></a>
+                    </li>
+                </ul>
+                <div class="cards"></div>
+            </div>
+
+            <!-- A template markup. -->
+            <div data-template="user-card">
+                <div class="user-card">
+                    <a class="close" href="#" data-on-click="tpl:close">x</a>
+                    <strong data-text="user.name"></strong>
+                </div>
+            </div>
+            </div>
+        </div>
+        <script>
+            // Create your template
+            var UserCard = witch.inherit(witch.Template, {
+                template: 'user-card',
+                ready: function() {
+                    this.el.appendTo('.cards');
+                },
+                close: function() {
+                    this.el.remove();
+                }
+            });
+
+            var User = witch.inherit(witch.Model, {
+                card: function() {
+                    // Use your template
+                    var card = new UserCard({ user: this });
+                    card.render();
+                }
+            });
+
+            var users = new witch.Collection([
+                { name: 'Morgan Le Fay' },
+                { name: 'Maggie Wall' },
+                { name: 'Medea' }
+            ], User);
+
+            users.list[0].card();
+
+            var temp = {
+                users: users
+            };
+        </script>
+    </div>
+</div>
+
+<div data-template="code">
+    <div class="span7">
+        <h3>HTML</h3>
+        <pre><code class="language-markup"></code></pre>
+    </div>
+    <div class="span6">
+        <h3>Javascript</h3>
+        <pre><code class="language-javascript"></code></pre>
+    </div>
+</div>
+
+<script>
+    var cleanTabs = function(s) {
+        return s.replace(/^[ ]{12}/mg, '');
+    };
+
+    $('.row').each(function() {
+        var t = $(this),
+            html = cleanTabs(t.find('.html').html().trim()),
+            script = cleanTabs(t.find('script').text().trim());
+        witch.config.template('code', function(err, el) {
+            t.prepend(el);
+            el.find('code.language-markup').text(html);
+            el.find('code.language-javascript').text(script);
+        });
+    });
+</script>
+<script src="components/prism/prism.js"></script>
+
+</body>
+</html>

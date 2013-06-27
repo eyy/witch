@@ -1,5 +1,5 @@
 <!doctype html>
-<html>
+<html data-rivets="app">
 <head>
     <meta charset="UTF-8">
     <title data-text="config.title"></title>
@@ -73,15 +73,15 @@
 
     var PostView = function() {
         this.template = 'post';
-        witch.View.apply(this, arguments);
+        witch.Template.apply(this, arguments);
     };
-    $.extend(PostView.prototype, witch.View.prototype, {
+    $.extend(PostView.prototype, witch.Template.prototype, {
         close: function() {
             this.el.remove();
         }
     });
 
-    var tpl = new PostView({ post: post });
+    var tpl = new witch.Template({ post: post });
     tpl.render(function() {
         this.el.appendTo('.row');
     });
@@ -94,12 +94,12 @@
     var cmt = new witch.Model;
     cmt._collection = comments;
 
-    rivets.bind($('html'), {
+    var app = {
         config: config,
         post: post,
         comments: comments,
         cmt: cmt
-    });
+    };
 </script>
 
 </body>

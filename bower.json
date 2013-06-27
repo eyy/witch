@@ -24,6 +24,7 @@
     "watch": "https://raw.github.com/melanke/Watch.JS/master/src/watch.js"
   },
   "devDependencies": {
-    "bootstrap": "http://twitter.github.io/bootstrap/assets/bootstrap.zip"
+    "bootstrap": "http://twitter.github.io/bootstrap/assets/bootstrap.zip",
+    "prism": "latest"
   }
 }
