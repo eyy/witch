@@ -9,6 +9,27 @@
         });
     };
 
+    /*
+     REST
+     */
+    var rest = function(method, url, data, cb) {
+        data = data ? (method == 'get' ? $.param(data) : JSON.stringify(data)) : null;
+
+        return $.ajax({
+            type: method,
+            url: url,
+            data: data,
+            success: cb,
+            dataType: 'json',
+            processData: false,
+            contentType: 'application/json'
+        });
+    };
+
+    [ 'get', 'post', 'put', 'delete' ].forEach(function(method) {
+        rest[method] = rest.bind(rest, method);
+    });
+
 
     /*
      Model
@@ -167,12 +188,13 @@
                 return (typeof c == 'function') ? c.prototype : c;
             }));
             return Class;
-        }
+        },
+        rest: rest
     };
 
     $(function() {
         if (witch.config.preload)
             witch.init();
-    })
+    });
 
 })();

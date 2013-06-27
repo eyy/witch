@@ -1,17 +1,19 @@
 <!doctype html>
-<html data-rivets="app">
+<html>
 <head>
     <meta charset="UTF-8">
-    <title data-text="config.title"></title>
+    <title>Witch.js Example</title>
 
     <link rel="stylesheet" href="components/bootstrap/css/bootstrap.css"/>
-    <link rel="stylesheet" href="css/main.css"/>
+    <link rel="stylesheet" href="../dist/witch.css"/>
+    <style type="text/css">
+        body { padding: 50px; }
+    </style>
 </head>
 <body>
 
-<div class="container">
+<div class="container" data-rivets="app">
     <h1 data-text="config.title"></h1>
-    <p data-text="config.desc"></p>
 
     <div class="row">
         <div class="span3">
@@ -53,8 +55,7 @@
 <script src="components/jquery/jquery.js"></script>
 <script src="components/rivets/dist/rivets.js"></script>
 <script src="components/watch/index.js"></script>
-<script src="../dist/adapter.js"></script>
-<script src="../dist/rest.js"></script>
+<script src="../dist/rivets-adapter.js"></script>
 <script src="../dist/witch.js"></script>
 <script>
     var config = {
@@ -71,20 +72,18 @@
         }
     });
 
-    var PostView = function() {
-        this.template = 'post';
-        witch.Template.apply(this, arguments);
-    };
-    $.extend(PostView.prototype, witch.Template.prototype, {
+    var PostTpl = witch.inherit(witch.Template, {
+        template: 'post',
+        ready: function() {
+            this.el.appendTo('.row');
+        },
         close: function() {
             this.el.remove();
         }
     });
 
-    var tpl = new witch.Template({ post: post });
-    tpl.render(function() {
-        this.el.appendTo('.row');
-    });
+    var tpl = new PostTpl({ post: post });
+    tpl.render();
 
     var comments = new witch.Collection([
         { text: 'first!!!' },

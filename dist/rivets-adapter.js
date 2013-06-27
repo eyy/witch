@@ -1,3 +1,4 @@
+/* rivets adapter and config */
 (function() {
     var subscriber = function(fn) {
         return function(o, path, cb) {
