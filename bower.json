@@ -1,6 +1,6 @@
 {
   "name": "witch",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "repo": "eyy/witch",
   "description": "A witchery Javascript MVC, based on Rivets and Watch.js",
   "keywords": [
@@ -9,9 +9,7 @@
     "templating"
   ],
   "scripts": [
-    "dist/witch.js",
-    "dist/rest.js",
-    "dist/adapter.js"
+    "dist/witch.js"
   ],
   "main": "dist/witch.js",
   "license": "MIT",
