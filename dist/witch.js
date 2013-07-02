@@ -39,14 +39,14 @@
         $.extend(this, data);
     };
     $.extend(Model.prototype, {
+        _parse: function(res) { return res; },
         _callback: function(res) {
-            res = this.parse(res);
+            res = this._parse(res);
             if (!this._id && this._collection)
                 this._collection.move(this, this._id);
 
             $.extend(this, res);
         },
-        _parse: function(res) { return res; },
         _clean: function() {
             var prop;
             for (prop in this)
@@ -62,10 +62,10 @@
             return o;
         },
         fetch: function(data) {
-            return rest.get(this.url + this._id, data, this.callback, this);
+            return rest.get(this._url + this._id, data, this._callback.bind(this));
         },
         save: function() {
-            return rest[this._id ? 'put' : 'post'](this.url + this._id, this, this.callback, this);
+            return rest[this._id ? 'put' : 'post'](this._url + this._id, this, this._callback.bind(this));
         },
         saveAs: function() {
             var clone = this.toJSON();
@@ -74,10 +74,10 @@
         },
         delete: function() {
             if (this._id)
-                return rest.delete(this.url + this._id, {}, function() {
+                return rest.delete(this._url + this._id, {}, function() {
                     this._clean();
                     this._destroyed = true;
-                }, this);
+                }.bind(this));
 
             this._clean();
             this._destroyed = true;
@@ -94,17 +94,22 @@
             model = null;
         }
         this.model = model || this.model || Model;
-        this.url = url || this.url;
+        this.url = url || this.url || this.model.prototype._url;
 
-        this.list = [];
-        this.byId = {};
-        this.push(list);
+        this.clean();
+        if (list)
+            this.push(list);
     };
     $.extend(Collection.prototype, {
+        clean: function() {
+            this.list = [];
+            this.byId = {};
+            return this;
+        },
         fetch: function(data) {
             return rest.get(this.url, data, function(res) {
                 this.push(res);
-            }, this);
+            }.bind(this));
         },
         push: function(model) {
             if (Array.isArray(model)) {
@@ -174,7 +179,7 @@
                 var t = $(this),
                     m = window[t.data('rivets')];
                 if (m)
-                    rivets.bind(t, m);
+                    m._rivets = rivets.bind(t, m);
             });
         },
         inherit: function() {

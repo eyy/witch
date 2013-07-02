@@ -30,7 +30,8 @@
             publish: reader
         },
         handler: function(el, e, binding) {
-            e.preventDefault();
+            if (!$(el).data('default'))
+                e.preventDefault();
             return this.call(binding.model, binding);
         }
     });
