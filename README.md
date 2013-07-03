@@ -32,5 +32,5 @@ Use
 
 Todo
 ----
-- [] tests
-- [] documantation
+- tests
+- documantation
