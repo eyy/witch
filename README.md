@@ -18,9 +18,7 @@ Use
 
 <!-- scripts -->
 <script src="components/jquery/jquery.js"></script>
-<script src="components/rivets/dist/rivets.js"></script>
-<script src="components/watch/index.js"></script>
-<script src="components/witch/dist/witch.js"></script> <!-- Witchcraft! -->
+<script src="components/witch/dist/witch-dep.min.js"></script> <!-- Witch, Watch.js and Rivets, minified -->
 <script>
     var app = {
         config: {
