@@ -3,7 +3,7 @@
 
 A witchery Javascript MVC, based on [Rivets](http://rivetsjs.com/) and [Watch.js](http://qix.github.io/watch.js/)
 
-
+### [Getting started && examples](http://eyy.github.io/witch/)
 
 Install
 -------
@@ -30,5 +30,8 @@ Use
 </script>
 ```
 
-[Getting started / Examples](http://eyy.github.io/witch/)
---------------------------------
+Todo
+----
+- tests
+- grunt minifer (rivets + watch.js + witch)
+- documantation
