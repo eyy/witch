@@ -1,0 +1,11 @@
+{
+  "name": "witch",
+  "version": "0.0.5",
+  "private": false,
+  "devDependencies": {
+    "grunt": "~0.x.1",
+    "grunt-contrib-concat": "~0.x.0",
+    "grunt-contrib-uglify": "~0.x.0",
+    "grunt-contrib-compress": "~0.5.2"
+  }
+}
