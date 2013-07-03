@@ -19,7 +19,8 @@ Use
 
 <!-- scripts -->
 <script src="components/jquery/jquery.js"></script>
-<script src="components/witch/dist/witch-dep.min.js"></script> <!-- Witch, Watch.js and Rivets, minified -->
+<script src="components/witch/dist/witch-dep.min.js"></script>
+<!-- Witch, Watch.js and Rivets, minified together -->
 <script>
     var app = {
         config: {
@@ -32,5 +33,4 @@ Use
 Todo
 ----
 - [] tests
-- [x] grunt minifer (rivets + watch.js + witch)
 - [] documantation
