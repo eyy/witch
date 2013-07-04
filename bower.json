@@ -14,10 +14,14 @@
   "main": "dist/witch.js",
   "license": "MIT",
   "ignore": [
-    "example"
+    "example",
+    "Gruntfile.js",
+    "package.json"
   ],
+  "dependencies": {
+    "jquery": "~2.0.2"
+  },
   "devDependencies": {
-    "jquery": "~2.0.2",
     "rivets": "~0.5.8",
     "watch": "https://raw.github.com/melanke/Watch.JS/master/src/watch.js"
   }
