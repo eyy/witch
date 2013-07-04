@@ -6,9 +6,6 @@
 
     <link rel="stylesheet" href="components/bootstrap/css/bootstrap.css"/>
     <style type="text/css">
-        [data-template] {
-            display: none;
-        }
         body { padding: 50px; }
         .flash {
             -webkit-animation: 2s flash;
@@ -42,7 +39,7 @@
     </div>
 </div>
 
-<div class="hide" data-template="post">
+<script type="text/html" data-template="post">
     <div class="span2">
         <a class="close" href="#" data-on-click="tpl:close">x</a>
         <h3 data-text="post.title"></h3>
@@ -59,16 +56,21 @@
             </li>
         </ul>
     </div>
-</div>
+</script>
 
 <script src="components/jquery/jquery.js"></script>
 <script src="../dist/witch-dep.min.js"></script>
+<!--<script src="components/watch/index.js"></script>
+<script src="components/rivets/dist/rivets.js"></script>
+<script src="../dist/witch.js"></script>-->
 <script>
+    // Model-less data
     var config = {
         title: 'Witch.js',
         desc: 'A witchery Javascript MVC, based on Rivets and Watch.js'
     };
 
+    // Model and Collection
     var post = new witch.Model({
         title: 'Post title',
         content: 'Post content',
@@ -77,7 +79,14 @@
             email: 'someone@example.com'
         }
     });
+    var comments = new witch.Collection([
+        { text: 'first!' },
+        { text: 'cool vid, bro' },
+        { text: 'what did you that for?' }
+    ]);
+    var cmt = new witch.Model({}, comments);
 
+    // Template example
     var PostTpl = witch.inherit(witch.Template, {
         template: 'post',
         ready: function() {
@@ -87,18 +96,15 @@
             this.el.remove();
         }
     });
+    var tpl = new PostTpl({
+        post: post,
+        comments: comments
+    });
+    $(function() {
+        tpl.render();
+    });
 
-    var tpl = new PostTpl({ post: post });
-    tpl.render();
-
-    var comments = new witch.Collection([
-        { text: 'first!!!' },
-        { text: 'cool vid, bro' },
-        { text: 'why\'ja did that for?' }
-    ]);
-    var cmt = new witch.Model;
-    cmt._collection = comments;
-
+    // data-rivets="app"
     var app = {
         config: config,
         post: post,
