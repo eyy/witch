@@ -66,10 +66,6 @@
         });
     };
 
-    [ 'get', 'post', 'put', 'delete' ].forEach(function(method) {
-        rest[method] = rest.bind(rest, method);
-    });
-
 
     /*
      Model
@@ -102,10 +98,10 @@
             return o;
         },
         fetch: function(data) {
-            return rest.get(this._url + this._id, data, this._callback.bind(this));
+            return rest('get', this._url + this._id, data, this._callback.bind(this));
         },
         save: function() {
-            return rest[this._id ? 'put' : 'post'](this._url + this._id, this, this._callback.bind(this));
+            return rest(this._id ? 'put' : 'post', this._url + this._id, this, this._callback.bind(this));
         },
         saveAs: function() {
             var clone = this.toJSON();
@@ -114,7 +110,7 @@
         },
         delete: function() {
             if (this._id)
-                return rest.delete(this._url + this._id, {}, function() {
+                return rest('delete', this._url + this._id, {}, function() {
                     this._clean();
                     this._destroyed = true;
                 }.bind(this));
@@ -147,7 +143,7 @@
             return this;
         },
         fetch: function(data) {
-            return rest.get(this.url, data, function(res) {
+            return rest('get', this.url, data, function(res) {
                 this.push(res);
             }.bind(this));
         },
