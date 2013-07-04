@@ -76,16 +76,17 @@
      */
     var Model = function(data, collection) {
         this._collection = collection || this._collection;
-        $.extend(this, data);
+		this._callback = this._callback.bind(this);
+		this.update(data);
     };
     $.extend(Model.prototype, {
-        _parse: function(res) { return res; },
-        _callback: function(res) {
-            res = this._parse(res);
-            if (!this._id && this._collection)
-                this._collection.move(this, this._id);
-
-            $.extend(this, res);
+        _parse: function(data) { return data; },
+        _callback: function(data) {
+            data = this._parse(data);
+            if (!this._id && data._id && this._collection)
+                this._collection.byId[data._id] = this;
+				
+            $.extend(this, data);
         },
         _clean: function() {
             var prop;
@@ -102,10 +103,10 @@
             return o;
         },
         fetch: function(data) {
-            return rest.get(this._url + this._id, data, this._callback.bind(this));
+            return rest.get(this._url + this._id, data, this._callback);
         },
         save: function() {
-            return rest[this._id ? 'put' : 'post'](this._url + this._id, this, this._callback.bind(this));
+            return rest[this._id ? 'put' : 'post'](this._url + this._id, this, this._callback);
         },
         saveAs: function() {
             var clone = this.toJSON();
@@ -121,7 +122,11 @@
 
             this._clean();
             this._destroyed = true;
-        }
+        },
+		update: function(data) {
+			$.extend(this, this._parse(data));
+			return this;
+		}
     });
 
 
@@ -157,6 +162,9 @@
                 this.filled = true;
                 return false;
             }
+			
+			if (this.byId[model._id])
+				return this.byId[model._id].update(model);
 
             model = (model instanceof Model) ? model : new this.model(model, this);
             model._collection = this;
@@ -168,7 +176,7 @@
                     this.remove(model);
             }.bind(this));
 
-            this.byId[model._id || uid()] = model;
+            if (model._id) ? this.byId[model._id] = model;
             this.list.push(model);
 
             return model;
