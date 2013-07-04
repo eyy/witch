@@ -192,7 +192,7 @@
                 return console.error('No template', this);
 
             fn || (fn = this.ready);
-            witch.config.template(this.template, function(err, el) {
+            witch.config.template(this.template, this.data, function(err, el) {
                 this.el = el;
                 this._rivets = rivets.bind(this.el, this.data);
                 if (fn) fn.call(this);
@@ -209,7 +209,7 @@
         rest: rest,
         config: {
             auto: true,
-            template: function(tpl, cb) {
+            template: function(tpl, data, cb) {
                 var el = $($('[data-template="' + tpl + '"]').html().trim());
                 cb(!el.length, el);
             }
