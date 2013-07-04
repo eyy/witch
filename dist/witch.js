@@ -156,6 +156,7 @@
 
             model = (model instanceof Model) ? model : new this.model(model, this);
             model._collection = this;
+            model._url || (model._url = this.url);
             if (this.filled)
                 model._new = true;
 
