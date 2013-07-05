@@ -191,7 +191,7 @@
             if (!this.template)
                 return console.error('No template', this);
 
-            fn || (fn = this.ready);
+            arguments.length || (fn = this.ready);
             witch.config.template(this.template, this.data, function(err, el) {
                 this.el = el;
                 this._rivets = rivets.bind(this.el, this.data);
