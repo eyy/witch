@@ -1,10 +1,10 @@
-![Witch.js](http://eyy.github.io/witch/img/icon.png)&nbsp;[Witch.js](http://eyy.github.io/witch/)
+![Witch.js](http://eyy.github.io/witch/img/icon.png)&nbsp;[Witch.js](http://witch.io/)
 =======
 
 A witchery Javascript MVC, based on [Rivets](http://rivetsjs.com/) and [Watch.js](http://qix.github.io/watch.js/).
 
 ### Only 2kb (7kb with Rivets and Watch.js) minified and gziped!
-### [Getting started && examples](http://eyy.github.io/witch/)
+### [Getting started && examples](http://witch.io/)
 
 Install
 -------
