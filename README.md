@@ -30,7 +30,16 @@ Use
 </script>
 ```
 
+Documantation
+-------------
+
+- Overview
+- Model
+- Collection
+- [Template](https://github.com/eyy/witch/wiki/Template)
+- Misc
+
+
 Todo
 ----
 - tests
-- documantation
