@@ -1,0 +1,105 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Witch Tests</title>
+    <link rel="stylesheet" href="../components/qunit/qunit.css"/>
+    <style type="text/css">
+        body {
+            width: 500px;
+            margin: 20px auto;
+        }
+    </style>
+</head>
+<body>
+
+<div id="qunit"></div>
+<div id="qunit-fixture"></div>
+
+<script src="../components/jquery/jquery.min.js"></script>
+<script src="../components/watch/index.js"></script>
+<script src="../components/rivets/dist/rivets.js"></script>
+<script src="../dist/witch.js"></script>
+
+<script src="../components/qunit/qunit.js"></script>
+
+<script>
+    module('Rivets adapter');
+
+    var adapter = rivets.config.adapter;
+    var o = {
+        one: 1,
+        deep: {
+            two: 2,
+            nested: {
+                three: 3
+            }
+        }
+    };
+
+    test('read', function() {
+        equal(adapter.read(o, 'one'), 1);
+        equal(adapter.read(o, 'deep.two'), 2);
+        equal(adapter.read(o, 'deep.nested.three'), 3);
+    });
+
+    test('publish', function() {
+        adapter.publish(o, 'one', 'ONE');
+        adapter.publish(o, 'deep.two', 'TWO');
+        adapter.publish(o, 'deep.nested.three', 'THREE');
+
+        equal(adapter.read(o, 'one'), 'ONE');
+        equal(adapter.read(o, 'deep.two'), 'TWO');
+        equal(adapter.read(o, 'deep.nested.three'), 'THREE');
+    });
+
+    module('Model');
+
+    test('_callback - simple', function() {
+        var m = new witch.Model;
+        m._callback({
+            name: 'me'
+        });
+        equal(m.name, 'me');
+    });
+
+    test('_callback - with new _id', function() {
+        var c = new witch.Collection,
+            m = new witch.Model({}, c);
+        m._callback({
+            name: 'me',
+            _id: 51
+        });
+        equal(m.name, 'me');
+        equal(c.byId[51], m);
+    });
+
+    test('_callback - simple', function() {
+        var m = new witch.Model;
+        m._callback({
+            name: 'me'
+        });
+        equal(m.name, 'me');
+    });
+
+    module('Collection');
+
+    test('new Collection()', function() {
+        var c = new witch.Collection;
+        equal(c.model, witch.Model);
+        equal(c.list.length, 0);
+    });
+
+    test('new Collection(list)', function() {
+        var c = new witch.Collection([
+            { name: 'what', _id: 51 }
+        ]);
+        var m = c.list[0];
+        equal(c.list.length, 1);
+        equal(m._collection, c);
+        equal(c.byId[51], m);
+    });
+</script>
+
+</body>
+</html>

@@ -23,6 +23,7 @@
   },
   "devDependencies": {
     "rivets": "~0.5.8",
-    "watch": "https://raw.github.com/melanke/Watch.JS/master/src/watch.js"
+    "watch": "https://raw.github.com/melanke/Watch.JS/master/src/watch.js",
+    "qunit": "~1.11.0"
   }
 }

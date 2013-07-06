@@ -3,11 +3,15 @@
 (function (factory) {
     // CommonJS
     if (typeof exports === 'object')
-        module.exports = factory(require('jquery'), require('rivets'), require('WatchJS'));
+        module.exports = factory(
+            require('jquery'),
+            require('rivets'),
+            require('watchjs')
+        );
 
     // AMD
     else if (typeof define === 'function' && define.amd)
-        define(['jquery', 'rivets', 'WatchJS'], factory);
+        define('witch', ['jquery', 'rivets', 'watch'], factory);
 
     // Browser globals
     else
