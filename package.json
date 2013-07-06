@@ -1,10 +1,7 @@
 {
   "name": "witch",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "private": false,
-  "scripts": {
-    "test": "node tests/witch"
-  },
   "devDependencies": {
     "grunt": "~0.x.1",
     "grunt-contrib-concat": "~0.x.0",

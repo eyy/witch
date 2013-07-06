@@ -1,6 +1,6 @@
 {
   "name": "witch",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "repo": "eyy/witch",
   "description": "A witchery Javascript MVC, based on Rivets and Watch.js",
   "keywords": [
@@ -14,7 +14,9 @@
   "main": "dist/witch.js",
   "license": "MIT",
   "ignore": [
+    "components",
     "example",
+    "tests",
     "Gruntfile.js",
     "package.json"
   ],
