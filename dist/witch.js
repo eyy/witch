@@ -1,5 +1,16 @@
 /* rivets adapter and config */
-(function() {
+/* witch */
+(function($, rivets, WatchJS) {
+    if (!$)
+        return console.error('Witch: where is jQuery?');
+    if (!rivets)
+        return console.error('Witch: where is Rivets?');
+    if (!WatchJS)
+        return console.error('Witch: where is WatchJS?');
+
+    /*
+     Rivets Adapter
+     */
     var subscriber = function(fn) {
         return function(o, path, cb) {
             path = path.split('.');
@@ -21,11 +32,10 @@
             return o[p.shift()];
         o[p.shift()] = value;
     };
-
     rivets.configure({
         adapter: {
-            subscribe: subscriber(watch),
-            unsubscribe: subscriber(unwatch),
+            subscribe: subscriber(WatchJS.watch),
+            unsubscribe: subscriber(WatchJS.unwatch),
             read: reader,
             publish: reader
         },
@@ -35,11 +45,7 @@
             return this.call(binding.model, binding);
         }
     });
-})();
 
-/* witch */
-(function() {
-    var slice = [].slice;
 
     /*
      REST
@@ -58,6 +64,7 @@
             context: context
         });
     };
+
 
     /*
      Model
@@ -160,7 +167,7 @@
             if (this.filled)
                 model._new = true;
 
-            watch(model, '_destroyed', function(prop, act, val) {
+            WatchJS.watch(model, '_destroyed', function(prop, act, val) {
                 if (val)
                     this.remove(model);
             }.bind(this));
@@ -174,9 +181,10 @@
             var i = this.list.indexOf(model);
             if (i !== -1) this.list.splice(i, 1);
             delete this.byId[model._id];
-            callWatchers(this);
+            WatchJS.callWatchers(this);
         }
     };
+
 
     /*
      Template
@@ -202,6 +210,7 @@
         }
     };
 
+
     window.witch = {
         Model: Model,
         Collection: Collection,
@@ -223,7 +232,7 @@
             });
         },
         inherit: function() {
-            var args = slice.call(arguments),
+            var args = Array.prototype.slice.call(arguments),
                 parent = args[0],
                 Class = function() {
                     parent.apply(this, arguments);
@@ -236,9 +245,10 @@
         }
     };
 
+    // auto init
     $(function() {
         if (witch.config.auto)
             witch.init();
     });
 
-})();
+})($ || jQuery, rivets, WatchJS);
