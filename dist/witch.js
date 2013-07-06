@@ -118,7 +118,7 @@
             return rest('get', this._url + this._id, data, this._callback);
         },
         save: function() {
-            return rest(this._id ? 'put' : 'post', this._url + this._id, this, this._callback);
+            return rest(this._id ? 'put' : 'post', this._url + (this._id || ''), this, this._callback);
         },
         saveAs: function() {
             var clone = this.toJSON();
