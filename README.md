@@ -34,7 +34,7 @@ Documantation
 -------------
 
 - Overview
-- Model
+- [Model](https://github.com/eyy/witch/wiki/Model)
 - Collection
 - [Template](https://github.com/eyy/witch/wiki/Template)
 - Misc
