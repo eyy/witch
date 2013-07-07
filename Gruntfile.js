@@ -8,8 +8,8 @@ module.exports = function(grunt) {
                 files: {
                     'dist/witch.min.js': ['dist/witch.js'],
                     'dist/witch-dep.min.js': [
-                        'example/components/watch/index.js',
-                        'example/components/rivets/dist/rivets.js',
+                        'components/watch/index.js',
+                        'components/rivets/dist/rivets.js',
                         'dist/witch.js'
                     ]
                 }

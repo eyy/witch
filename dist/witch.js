@@ -3,11 +3,7 @@
 (function (factory) {
     // CommonJS
     if (typeof exports === 'object')
-        module.exports = factory(
-            require('jquery'),
-            require('rivets'),
-            require('watchjs')
-        );
+        module.exports = factory(require('jquery'), require('rivets'), require('watchjs'));
 
     // AMD
     else if (typeof define === 'function' && define.amd)
@@ -115,9 +111,11 @@
             return o;
         },
         fetch: function(data) {
+            if (!this._url) return;
             return rest('get', this._url + this._id, data, this._callback);
         },
         save: function() {
+            if (!this._url) return;
             return rest(this._id ? 'put' : 'post', this._url + (this._id || ''), this, this._callback);
         },
         saveAs: function() {
@@ -126,7 +124,7 @@
             return this._collection.push(clone).save();
         },
         delete: function() {
-            if (this._id)
+            if (this._id && this._url)
                 return rest('delete', this._url + this._id, {}, function() {
                     this._clean();
                     this._destroyed = true;

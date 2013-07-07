@@ -3,8 +3,8 @@
 
 A witchery Javascript MVC, based on [Rivets](http://rivetsjs.com/) and [Watch.js](http://qix.github.io/watch.js/).
 
-### Only 2kb (7kb with Rivets and Watch.js) minified and gziped!
-### [Getting started && examples](http://witch.io/)
+### [Getting started && examples](http://witch.io/)!
+### Only 2kb (8kb with Rivets and Watch.js) minified and gziped..!
 
 Install
 -------
