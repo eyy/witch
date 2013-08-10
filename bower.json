@@ -1,6 +1,6 @@
 {
   "name": "witch",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "repo": "eyy/witch",
   "description": "A witchery Javascript MVC, based on Rivets and Watch.js",
   "keywords": [
