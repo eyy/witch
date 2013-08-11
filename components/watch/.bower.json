@@ -1,0 +1,13 @@
+{
+  "name": "watch",
+  "_cacheHeaders": {
+    "ETag": "\"b973eae0f137452480baa9a03dba888a\"",
+    "Content-Length": "10718",
+    "Content-Type": "text/plain; charset=utf-8",
+    "Content-Disposition": "inline"
+  },
+  "_release": "e-tag:b973eae0f",
+  "main": "index.js",
+  "_source": "https://raw.github.com/melanke/Watch.JS/master/src/watch.js",
+  "_target": "*"
+}
