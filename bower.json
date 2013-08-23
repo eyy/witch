@@ -27,6 +27,7 @@
   },
   "devDependencies": {
     "qunit": "*",
-    "bootstrap": "*"
+    "bootstrap": "*",
+    "prism": "*"
   }
 }

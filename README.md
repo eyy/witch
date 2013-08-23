@@ -4,7 +4,7 @@
 A witchery Javascript MVC, based on [Rivets](http://rivetsjs.com/) and [Watch.js](http://qix.github.io/watch.js/).
 
 ### [Getting started && examples](http://witch.io/)!
-### Only 2kb (8kb with Rivets and Watch.js) minified and gziped..!
+### Only 2kb minified and gziped!
 
 Install
 -------
@@ -17,8 +17,12 @@ Use
     <h1 data-text="config.title"></h1>
 </div>
 
-<!-- scripts -->
+<!-- dependencies -->
 <script src="components/jquery/jquery.min.js"></script>
+<script src="components/watch/index.js"></script>
+<script src="components/rivets/dist/rivets.js"></script>
+
+<!-- witchcraft -->
 <script src="components/witch/dist/witch.min.js"></script>
 <script>
     var app = {
@@ -38,7 +42,6 @@ Documantation
 - [Template](https://github.com/eyy/witch/wiki/Template)
 - Misc
 
-
-Todo
+License
 ----
-- tests
+MIT

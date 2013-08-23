@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Witch.js Example</title>
 
-    <link rel="stylesheet" href="../components/bootstrap/css/bootstrap.css"/>
+    <link rel="stylesheet" href="../components/bootstrap/dist/css/bootstrap.css"/>
     <style type="text/css">
         body { padding: 50px; }
         .flash {
@@ -14,33 +14,47 @@
             from { background: yellow; }
             to { background: auto; }
         }
+        .form-control {
+            margin-bottom: 10px;
+        }
+        .post {
+            padding: 15px;
+            background: lightyellow;
+        }
+        .post h3 {
+            margin-top: 5px;
+        }
     </style>
 </head>
 <body>
 
 <div class="container" data-rivets="app">
     <h1 data-text="config.title"></h1>
+    <p data-text="config.desc"></p>
 
     <div class="row">
-        <div class="span3">
+        <div class="col-md-4">
             <h4>Edit Post</h4>
-            <label><input type="text" data-value="post.title" /></label>
-            <label><textarea data-value="post.content"></textarea></label>
-            <label><input type="text" data-value="post.user.name" /></label>
-            <label><input type="text" data-value="post.user.email" /></label>
-            <button class="btn" data-on-click="post:save">Save</button>
+            <input type="text" class="form-control" data-value="post.title" />
+            <textarea class="form-control" data-value="post.content"></textarea>
+            <input type="text" class="form-control" data-value="post.user.name" />
+            <input type="text" class="form-control" data-value="post.user.email" />
         </div>
 
-        <form class="span3" data-on-submit="cmt:saveAs">
+        <form class="col-md-4" data-on-submit="cmt:saveAs">
             <h4>Add Comment</h4>
-            <input type="text" data-value="cmt.text" />
-            <button class="btn" type="submit">Comment</button>
+            <input type="text" class="form-control" data-value="cmt.text" />
+            <button class="btn btn-default" type="submit">Comment</button>
         </form>
+
+        <div class="post-wrapper col-md-4">
+            <h4>Result</h4>
+        </div>
     </div>
 </div>
 
 <script type="text/html" data-template="post">
-    <div class="span2">
+    <div class="post">
         <a class="close" href="#" data-on-click="tpl:close">x</a>
         <h3 data-text="post.title"></h3>
         <p data-text="post.content"></p>
@@ -89,7 +103,7 @@
     var PostTpl = witch.inherit(witch.Template, {
         template: 'post',
         ready: function() {
-            this.el.appendTo('.row');
+            this.el.appendTo('.post-wrapper');
         },
         close: function() {
             this.el.remove();
