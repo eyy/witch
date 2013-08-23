@@ -1,4 +1,4 @@
-![Witch.js](http://eyy.github.io/witch/img/icon.png)&nbsp;[Witch.js](http://witch.io/)
+![Witch.js](http://witch.io/img/icon.png)&nbsp;[Witch.js](http://witch.io/)
 =======
 
 A witchery Javascript MVC, based on [Rivets](http://rivetsjs.com/) and [Watch.js](http://qix.github.io/watch.js/).
