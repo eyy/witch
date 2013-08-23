@@ -20,7 +20,9 @@
     "index.html",
     "CNAME",
     "Gruntfile.js",
-    "package.json"
+    "package.json",
+    "app.js",
+    ".bowerrc"
   ],
   "dependencies": {
     "jquery": "*",
