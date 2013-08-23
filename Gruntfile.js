@@ -1,31 +1,25 @@
 module.exports = function (grunt) {
     grunt.initConfig({
-        uglify: {
-            options: {
-                mangle: true
-            },
-            my_target: {
-                files: {
-                    'dist/witch.min.js': ['dist/witch.js']
-                }
-            }
+        pkg: grunt.file.readJSON('bower.json'),
+
+        meta: {
+            banner:
+                '// witch <%= pkg.version %>\n' +
+                '// http://witch.io\n' +
+                '// license: <%= pkg.license %>\n\n'
         },
 
-        compress: {
-            main: {
-                options: {
-                    mode: 'gzip'
-                },
-                expand: true,
-                cwd: 'dist/',
-                src: ['*.min.js'],
-                dest: 'dist/'
+        uglify: { all: {
+            options: {
+                banner: '<%= meta.banner %>',
+                report: 'gzip'
+            },
+            files: {
+                'dist/witch.min.js': ['dist/witch.js']
             }
-        }
+        } }
     });
 
     grunt.loadNpmTasks('grunt-contrib-uglify');
-    grunt.loadNpmTasks('grunt-contrib-compress');
-
-    grunt.registerTask('default', ['uglify', 'compress']);
+    grunt.registerTask('default', ['uglify']);
 };
