@@ -1,0 +1,294 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Witch.js</title>
+
+    <link rel="stylesheet" href="example/components/bootstrap/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="example/components/prism/prism.css"/>
+    <link rel="stylesheet" href="example/css/main.css"/>
+</head>
+<body>
+
+<div>
+    <header>
+        <aside>
+            <a href="https://github.com/eyy/witch">
+                Github
+                <span class="brandico-github"></span>
+            </a>
+            <a href="http://empeeric.com">
+                Empeeric
+                <img src="example/img/empeeric.png" alt=""/>
+            </a>
+        </aside>
+        <h1>
+            <a href="https://github.com/eyy/witch">Witch.js</a>
+            <img src="example/img/icon.png" alt="" />
+        </h1>
+        <p>Against monster-frameworks and unnatural coding practices, you might need a <strong>witch</strong> at your side.</p>
+    </header>
+
+    <!-- Notice it is usually much better to put scripts at the end of <body>,
+        but because of all the inline <script>s in this page, these came up here. -->
+    <script src="example/components/jquery/jquery.min.js"></script>
+    <script src="example/components/watch/index.js"></script>
+    <script src="example/components/rivets/dist/rivets.js"></script>
+    <script src="dist/witch.js"></script>
+
+    <h2>The Basic</h2>
+    <p><strong>Data binding</strong> with <a href="http://rivetsjs.com">Rivets</a>, object observer with <a href="https://github.com/melanke/Watch.JS">Watch.js</a></p>
+    <div class="row">
+        <div class="col-md-3">
+            <h3>Output</h3>
+            <div class="html">
+            <div data-rivets="app">
+                <p>
+                    <!-- One-way binding -->
+                    My spell:
+                    <strong data-text="data.spell"></strong>
+                </p>
+                <!-- Two-way binding -->
+                <input type="text" class="form-control" data-value="data.spell"/>
+            </div>
+            </div>
+        </div>
+        <script>
+            // The simplest javascript
+            var app = {
+                data: {
+                    spell: 'Hello World!'
+                }
+            };
+        </script>
+    </div>
+    <hr>
+
+    <h2>Still Quite Basic</h2>
+    <p><strong>Models</strong>, collections and computed properties</p>
+    <div class="row">
+        <div class="col-md-3">
+            <h3>Todo</h3>
+            <div class="html">
+            <style type="text/css">
+                .done {
+                    text-decoration: line-through;
+                    color: grey;
+                }
+            </style>
+
+            <div data-rivets="todo">
+                <p>
+                    <!-- Declare computed property dependencies -->
+                    <span data-text="tasks:remaining
+                        < .list.length .updated"></span> of
+                    <span data-text="tasks.list.length"></span> remaining
+                </p>
+                <ul>
+                    <!-- Loop through the collection  -->
+                    <li data-each-task="tasks.list" data-class-done="task.done">
+                        <input type="checkbox" data-checked="task.done" />
+                        <span data-text="task.text"></span>
+                    </li>
+                </ul>
+                <form data-on-submit="tsk:saveAs" class="form-inline">
+                    <input type="text" class="form-control" data-value="tsk.text"/>
+                    <button type="submit" class="btn btn-primary">Add task</button>
+                </form>
+            </div>
+            </div>
+        </div>
+        <script>
+            // Write and inherit classes however you like
+            var Task = function() {
+                witch.Model.apply(this, arguments);
+                // Notifying the change
+                watch(this, 'done', function() {
+                    this._collection.updated += 'a';
+                });
+            };
+            $.extend(Task.prototype, witch.Model.prototype);
+
+            // Our task collection
+            var tasks = new witch.Collection([
+                { done: true, text: 'Buy a toad' },
+                { done: false, text: 'Buy a bat' },
+                { done: false, text: 'Fix my broom' }
+            ], Task); // <-- is a collection of tasks
+
+            // A computed property
+            tasks.remaining = function() {
+                return this.list.filter(function(t) {
+                    return !t.done
+                }).length;
+            };
+
+            var todo = {
+                tasks: tasks,
+                tsk: new Task({}, tasks)
+            };
+        </script>
+    </div>
+    <hr>
+
+    <h2>Basic All The Way Down</h2>
+    <p><strong>Templates</strong>, simple as they should be.</p>
+    <div class="row">
+        <div class="col-md-3">
+            <h3>Which Witch?</h3>
+            <div class="html">
+            <div data-rivets="templates">
+                <ul>
+                    <li data-each-user="users.list">
+                        <a href="#" data-text="user.name" data-on-click="user:card"></a>
+                    </li>
+                </ul>
+                <div class="cards"></div>
+            </div>
+
+            <!-- A template markup. -->
+            <div data-template="user-card">
+                <div class="user-card">
+                    <a class="close" href="#" data-on-click="tpl:close">x</a>
+                    <strong data-text="user.name"></strong>
+                </div>
+            </div>
+            </div>
+        </div>
+        <script>
+            // Create your template
+            var UserCard = witch.inherit(witch.Template, {
+                template: 'user-card',
+                ready: function() {
+                    this.el.appendTo('.cards');
+                },
+                close: function() {
+                    this.el.remove();
+                }
+            });
+
+            var User = witch.inherit(witch.Model, {
+                card: function() {
+                    // Use it
+                    var card = new UserCard({ user: this });
+                    card.render();
+                }
+            });
+
+            var users = new witch.Collection([
+                { name: 'Morgan Le Fay' },
+                { name: 'Maggie Wall' },
+                { name: 'Medea' }
+            ], User);
+
+            var templates = {
+                users: users
+            };
+
+            $(function() {
+                users.list[0].card();
+            });
+        </script>
+    </div>
+    <hr>
+
+    <h2>... And Basically, All The Way Up As Well</h2>
+    <p>
+        <strong>REST</strong> assure: you can fetch and save your data from/to the server. Also, a little animation example.<br />
+    </p>
+    <div class="row">
+        <div class="col-md-3">
+            <h3>REST</h3>
+            <div class="html">
+            <style type="text/css">
+                .flash { -webkit-animation: 2s flash; }
+                @-webkit-keyframes flash {
+                    from { background: yellow; }
+                    to { background: auto; }
+                }
+            </style>
+
+            <div data-rivets="server">
+                <ul>
+                    <!-- Add a nice flash animation when adding items -->
+                    <li data-each-item="items.list" data-class-flash="item._new">
+                        <!-- `delete()` -->
+                        <i class="glyphicon glyphicon-remove" data-on-click="item:delete"></i>
+                        <span data-text="item.name"></span>
+                    </li>
+                </ul>
+                <!-- `saveAs()` will clone the data and clean itself -->
+                <form data-on-submit="item:saveAs" class="form-inline">
+                    <input type="text" class="form-control" data-value="item.name"/>
+                    <button type="submit" class="btn btn-primary">Add Item</button>
+                </form>
+            </div>
+            </div>
+        </div>
+        <script>
+            var items = new witch.Collection([
+                // Fake data, pretend it's from the server
+                { name: 'Spell book' },
+                { name: 'Broom' },
+            ], '/api/items/'); // <-- collection url
+
+            var server = {
+                items: items,
+                item: new witch.Model({}, items) // <-- model's collection
+            };
+
+            $(function() {
+                // Fetch 'em!
+                items.fetch();
+            });
+        </script>
+    </div>
+</div>
+<div>
+    <h4>You'll need a server. If you have git, node and mongo, you can run one:</h4>
+    <pre style="width:500px;"><code>git clone https://git@github.com/eyy/witch.git
+cd witch
+npm install
+node app</code></pre>
+</div>
+
+<div data-template="code">
+    <div class="col-md-5">
+        <h3>HTML</h3>
+        <pre><code class="language-markup"></code></pre>
+    </div>
+    <div class="col-md-4">
+        <h3>Javascript</h3>
+        <pre><code class="language-javascript"></code></pre>
+    </div>
+</div>
+
+<script>
+    var cleanTabs = function(s) {
+        return s.replace(/^[ ]{12}/mg, '');
+    };
+
+    $('.row').each(function() {
+        var t = $(this),
+            html = cleanTabs(t.find('.html').html().trim()),
+            script = cleanTabs(t.find('script').text().trim());
+        witch.config.template('code', {}, function(err, el) {
+            t.prepend(el);
+            el.find('code.language-markup').text(html);
+            el.find('code.language-javascript').text(script);
+        });
+    });
+</script>
+<script src="example/components/prism/prism.js"></script>
+
+<script>
+    /*(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-26972001-2', 'witch.io');
+    ga('send', 'pageview');*/
+</script>
+
+</body>
+</html>

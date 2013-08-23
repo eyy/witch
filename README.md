@@ -27,7 +27,7 @@ Use
 <script>
     var app = {
         config: {
-            title: 'Bewitched.'
+            title: 'Bewitched'
         }
     };
 </script>

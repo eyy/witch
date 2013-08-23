@@ -6,17 +6,19 @@
   "keywords": [
     "mvc",
     "data binding",
-    "templating"
+    "templating",
+    "rest"
   ],
   "scripts": [
-    "dist/witch.min.js"
+    "dist/witch.js"
   ],
   "main": "dist/witch.js",
   "license": "MIT",
   "ignore": [
-    "components",
     "example",
     "tests",
+    "index.html",
+    "CNAME",
     "Gruntfile.js",
     "package.json"
   ],
