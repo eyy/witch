@@ -1,5 +1,8 @@
-/* rivets adapter and config */
-/* witch */
+/*
+    witch
+    http://witch.io
+    http://github.com/eyy/witch
+*/
 (function (factory) {
     // CommonJS
     if (typeof exports === 'object')

@@ -9,7 +9,7 @@
     "templating"
   ],
   "scripts": [
-    "dist/witch-dep.min.js"
+    "dist/witch.min.js"
   ],
   "main": "dist/witch.js",
   "license": "MIT",
@@ -21,11 +21,12 @@
     "package.json"
   ],
   "dependencies": {
-    "jquery": "~2.0.2"
+    "jquery": "*",
+    "rivets": "*",
+    "watch": "https://raw.github.com/melanke/Watch.JS/master/src/watch.js"
   },
   "devDependencies": {
-    "rivets": "~0.5.8",
-    "watch": "https://raw.github.com/melanke/Watch.JS/master/src/watch.js",
-    "qunit": "~1.11.0"
+    "qunit": "*",
+    "bootstrap": "*"
   }
 }

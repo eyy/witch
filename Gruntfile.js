@@ -1,4 +1,4 @@
-module.exports = function(grunt) {
+module.exports = function (grunt) {
     grunt.initConfig({
         uglify: {
             options: {
@@ -6,26 +6,21 @@ module.exports = function(grunt) {
             },
             my_target: {
                 files: {
-                    'dist/witch.min.js': ['dist/witch.js'],
-                    'dist/witch-dep.min.js': [
-                        'components/watch/index.js',
-                        'components/rivets/dist/rivets.js',
-                        'dist/witch.js'
-                    ]
+                    'dist/witch.min.js': ['dist/witch.js']
                 }
             }
         },
 
         compress: {
-          main: {
-            options: {
-              mode: 'gzip'
-            },
-            expand: true,
-            cwd: 'dist/',
-            src: ['*.min.js'],
-            dest: 'dist/'
-          }
+            main: {
+                options: {
+                    mode: 'gzip'
+                },
+                expand: true,
+                cwd: 'dist/',
+                src: ['*.min.js'],
+                dest: 'dist/'
+            }
         }
     });
 

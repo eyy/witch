@@ -18,9 +18,8 @@ Use
 </div>
 
 <!-- scripts -->
-<script src="components/jquery/jquery.js"></script>
-<script src="components/witch/dist/witch-dep.min.js"></script>
-<!-- Witch, Watch.js and Rivets, minified together -->
+<script src="components/jquery/jquery.min.js"></script>
+<script src="components/witch/dist/witch.min.js"></script>
 <script>
     var app = {
         config: {
