@@ -1,0 +1,57 @@
+@import url(http://weloveiconfonts.com/api/?family=brandico);
+
+/* brandico */
+[class*="brandico-"]:before {
+    font-family: 'brandico', Arial, sans-serif;
+}
+
+/* template */
+[data-template] {
+    display: none;
+}
+
+/* site styling */
+body {
+    padding: 50px;
+}
+header {
+    margin: -50px -50px 50px; padding: 50px;
+    background: rgb(114, 50, 150);
+    color: white;
+    font-size: 20px;
+}
+header h1 {
+    font-size: 60px;
+    line-height: 50px;
+}
+header a {
+    color: white !important;
+}
+header aside {
+    float: right;
+    text-align: right;
+}
+header aside a {
+    display: block;
+    margin-bottom: 10px;
+    -webkit-transition: -webkit-transform .5s;
+}
+header aside a:hover {
+    text-decoration: none;
+    -webkit-transform: translateX(-20px);
+}
+
+.user-card {
+    display: inline-block;
+    margin: 0 10px 10px 0; padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+.user-card .close {
+    margin-left: 10px;
+}
+
+.form-inline .form-control {
+    display: inline-block;
+    width: 200px;
+}
